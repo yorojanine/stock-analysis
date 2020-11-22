@@ -156,6 +156,34 @@ If true, it picks up the value in column 6 again. If false, it tells the code to
 It runs the code until it reaches the total amount of rows accounted. In the output, it should show a value (for every ticker noted)
 in Total Volumes and a calculated value of starting/ending prices in Returns.
 
+<Details>
+  <summary>
+    Added Codes
+  </summary>
+      
+        '1. Index
+        tickerIndex = 0
+        
+        '2. Loops for initializing the volumes to zero
+        For i = 0 to 11
+        tickerVolumes(tickerIndex) = 0
+        Next i
+        
+        '3. Loops the rows for the tickerIndex
+         For i = 2 To RowCount     
+                    tickerVolumes(tickerIndex) = tickerVolumes(tickerIndex) + Cells(i, 8).Value
+                    If Cells(i - 1, 1).Value <> tickers(tickerIndex) And Cells(i, 1).Value = tickers(tickerIndex) Then
+                    tickerStartingPrices(tickerIndex) = Cells(i, 6).Value
+                    End If
+                    If Cells(i + 1, 1).Value <> tickers(tickerIndex) And Cells(i, 1).Value = tickers(tickerIndex) Then
+                    tickerEndingPrices(tickerIndex) = Cells(i, 6).Value
+                    tickerIndex = tickerIndex + 1
+                    End If
+                    
+          Next i
+           
+</Details>
+
 ### Results
 Within the deliverable, it runs the code based on the selected year.
 There are two different years available and the results reflect accordingly.
